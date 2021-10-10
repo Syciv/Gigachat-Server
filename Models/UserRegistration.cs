@@ -4,7 +4,7 @@ namespace Server
 {
     public class UserRegistration
     {
-        [JsonPropertyName("username")]
+        [JsonPropertyName("userName")]
         public string UserName { get; set; }
 
         [JsonPropertyName("name")]

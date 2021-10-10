@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "AWw0GJg8bEbH8z15MZDYvmPP+tbbzcPYPC2bx/D1Ze+/GXj58P+RSBSOgOr0dFd870cJdLQumgqOByhswGkY1A==",
+  "dgSpecHash": "L71G9BGv8YH2IIE6D69VNJqhk5kS8jlfQcBT1+172VWGWGHDFN+KLy7Dhni0njoLiL0e6UTkasQXMlsHrnZG8w==",
   "success": true,
   "projectFilePath": "C:\\Users\\EEEOne\\Desktop\\ChattServer\\GigachatServer.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\EEEOne\\.nuget\\packages\\npgsql\\5.0.10\\npgsql.5.0.10.nupkg.sha512",
+    "C:\\Users\\EEEOne\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.6.0\\system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using GigachatServer.Services;
 
 namespace Server
 {
@@ -14,6 +15,8 @@ namespace Server
         protected List<Client> Clients; // Список подключённых клиентов
         protected Socket sock;
         protected List<Thread> ClientThreads; // Потоки слушания клиетов
+        protected Mutex mutexObj = new Mutex();
+        protected DataBaseObject DataBase;
 
         public ServerObject()
         {
@@ -22,6 +25,7 @@ namespace Server
             sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPEndPoint localIP = new IPEndPoint(IPAddress.Parse("192.168.56.1"), 5555);
             sock.Bind(localIP);
+            DataBase = new DataBaseObject();
             // Listen();
         }
 
@@ -37,17 +41,9 @@ namespace Server
                 Client client = new Client(connection);
                 Clients.Add(client);
 
-                //NewClient newClient = new NewClient { ClientName = "пока так" };
-                //Data data = new Data { NewClient = newClient};
-                //Send_To_Other_Clients(client, data);
+                // Send_To_All_Clients(new Data { NewClient = new NewClient { ClientName = "Пока так" } });
 
-                Send_To_All_Clients(new Data { NewClient = new NewClient { ClientName = "Пока так" } });
-
-                Listen_ClientAsync(client);
-                // Запуск потока нового клиента
-                //Thread tHr = new Thread(new ParameterizedThreadStart(Listen_Client));
-                //tHr.Start(client);
-                //ClientThreads.Add(tHr);            
+                Listen_ClientAsync(client);        
             }
         }
 
@@ -87,7 +83,17 @@ namespace Server
                     if (data.UserRegistration != null)
                     {
                         UserRegistration userReg = data.UserRegistration;
-                        Console.WriteLine(String.Format("{0}: {1}\n", userReg.UserName, userReg.Name));
+
+                        Console.WriteLine(userReg.UserName);
+                        //Console.WriteLine(String.Format("{0}: {1}\n", userReg.UserName, userReg.Name));
+
+                        // Критическая секция
+                        mutexObj.WaitOne();
+
+                        string result = DataBase.AddUser(userReg.UserName, userReg.PasswordHash, userReg.Salt);
+                        Console.WriteLine(result);
+
+                        mutexObj.ReleaseMutex();
 
                         Response response = new Response{ Result=1, Message="hihi", Time = DateTime.Now.ToString("HH:mm") };
                         string respObj = JsonSerializer.Serialize<Response>(response);

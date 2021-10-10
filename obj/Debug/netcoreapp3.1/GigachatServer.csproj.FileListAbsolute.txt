@@ -11,3 +11,5 @@ C:\Users\EEEOne\Desktop\ChattServer\obj\Debug\netcoreapp3.1\GigachatServer.cspro
 C:\Users\EEEOne\Desktop\ChattServer\obj\Debug\netcoreapp3.1\GigachatServer.dll
 C:\Users\EEEOne\Desktop\ChattServer\obj\Debug\netcoreapp3.1\GigachatServer.pdb
 C:\Users\EEEOne\Desktop\ChattServer\obj\Debug\netcoreapp3.1\GigachatServer.genruntimeconfig.cache
+C:\Users\EEEOne\Desktop\ChattServer\bin\Debug\netcoreapp3.1\Npgsql.dll
+C:\Users\EEEOne\Desktop\ChattServer\obj\Debug\netcoreapp3.1\GigachatServer.csproj.CopyComplete
