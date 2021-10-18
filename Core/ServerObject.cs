@@ -6,7 +6,8 @@ using System.Net.Sockets;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using GigachatServer.Services;
+using GigachatServer.Core;
+using GigachatServer.Models;
 
 namespace Server
 {
@@ -68,10 +69,11 @@ namespace Server
 
                     // Получаем сообщение из буфера
                     int endOfData = jsonObj.IndexOf((char)0x00);
-                    jsonObj = jsonObj.Substring(0, endOfData);
+                    jsonObj = jsonObj.Substring(0, len);
 
                     // Отображение сообщения
                     Data data = JsonSerializer.Deserialize<Data>(jsonObj);
+
                     if (data.Message != null)
                     {
                         Message mes = data.Message;
@@ -90,13 +92,52 @@ namespace Server
                         // Критическая секция
                         mutexObj.WaitOne();
 
-                        string result = DataBase.AddUser(userReg.UserName, userReg.PasswordHash, userReg.Salt);
-                        Console.WriteLine(result);
+                        (int result, string message) = DataBase.AddUser(userReg.UserName, userReg.Password, userReg.Name, userReg.Surname);
+                        Console.WriteLine(message);
 
                         mutexObj.ReleaseMutex();
 
-                        Response response = new Response{ Result=1, Message="hihi", Time = DateTime.Now.ToString("HH:mm") };
+                        Response response = new Response{ Result=result, Message= message, Time = DateTime.Now.ToString("HH:mm") };
                         string respObj = JsonSerializer.Serialize<Response>(response);
+                        byte[] respbytes = Encoding.Default.GetBytes(respObj);
+                        client.connection.Send(respbytes);
+                    }
+
+                    if (data.UserAuthentification != null)
+                    {
+                        UserAuthentification userAuth = data.UserAuthentification;
+                        Console.WriteLine(userAuth.UserName + " " + userAuth.Password);
+
+                        mutexObj.WaitOne();
+
+                        (int result, string message) = DataBase.Auntheficate(userAuth.UserName, userAuth.Password);
+                        Console.WriteLine(message);
+
+                        mutexObj.ReleaseMutex();
+
+                        Response response = new Response { Result = result, Message = message, Time = DateTime.Now.ToString("HH:mm") };
+
+                        Data respdata = new Data { Response = response };
+
+                        string respObj = JsonSerializer.Serialize<Data>(respdata);
+                        byte[] respbytes = Encoding.Default.GetBytes(respObj);
+                        client.connection.Send(respbytes);
+                    }
+
+                    if(data.User != null)
+                    {
+                        User user = data.User;
+
+                        Console.WriteLine("Достаём профиль " + user.UserName);
+                        mutexObj.WaitOne();
+
+                        (int result, string message, UserProfile userProfile) = DataBase.GetUserProfile(user.UserName);
+                        Console.WriteLine(message);
+
+                        mutexObj.ReleaseMutex();
+
+                        Data respdata = new Data { UserProfile = userProfile };
+                        string respObj = JsonSerializer.Serialize<Data>(respdata);
                         byte[] respbytes = Encoding.Default.GetBytes(respObj);
                         client.connection.Send(respbytes);
                     }

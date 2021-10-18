@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("GigachatServer")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Bo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("GigachatServer")]
-[assembly: System.Reflection.AssemblyTitleAttribute("GigachatServer")]
+[assembly: System.Reflection.AssemblyProductAttribute("Bo")]
+[assembly: System.Reflection.AssemblyTitleAttribute("Bo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Создано классом WriteCodeFragment MSBuild.
