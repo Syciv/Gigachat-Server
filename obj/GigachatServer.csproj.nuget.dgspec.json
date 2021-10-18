@@ -8,7 +8,7 @@
       "version": "1.0.0",
       "restore": {
         "projectUniqueName": "C:\\Users\\EEEOne\\Desktop\\ChattServer\\GigachatServer.csproj",
-        "projectName": "GigachatServer",
+        "projectName": "Bo",
         "projectPath": "C:\\Users\\EEEOne\\Desktop\\ChattServer\\GigachatServer.csproj",
         "packagesPath": "C:\\Users\\EEEOne\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\EEEOne\\Desktop\\ChattServer\\obj\\",
@@ -44,6 +44,10 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "BouncyCastle": {
+              "target": "Package",
+              "version": "[1.8.9, )"
+            },
             "Npgsql": {
               "target": "Package",
               "version": "[5.0.10, )"

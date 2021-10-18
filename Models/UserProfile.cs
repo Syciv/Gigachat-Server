@@ -2,7 +2,7 @@
 
 namespace GigachatServer.Models
 {
-    public class UserRegistration
+    public class UserProfile
     {
         [JsonPropertyName("userName")]
         public string UserName { get; set; }
@@ -13,7 +13,10 @@ namespace GigachatServer.Models
         [JsonPropertyName("surname")]
         public string Surname { get; set; }
 
-        [JsonPropertyName("password")]
-        public string Password { get; set; }
+        [JsonPropertyName("date")]
+        public string Date { get; set; }
+
+        [JsonPropertyName("profileImage")]
+        public byte[] ProfileImage { get; set; }
     }
 }
