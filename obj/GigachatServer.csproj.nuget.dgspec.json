@@ -51,6 +51,10 @@
             "Npgsql": {
               "target": "Package",
               "version": "[5.0.10, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[5.0.2, )"
             }
           },
           "imports": [

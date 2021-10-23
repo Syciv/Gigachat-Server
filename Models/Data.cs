@@ -21,5 +21,8 @@ namespace GigachatServer.Models
 
         [JsonPropertyName("response")]
         public Response Response { get; set; }
+
+        [JsonPropertyName("profileImage")]
+        public ProfileImage ProfileImage { get; set; }
     }
 }

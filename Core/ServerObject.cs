@@ -59,7 +59,8 @@ namespace Server
             var client = (Client)obj;
             var connection = client.connection;
             bool connected = true;
-            byte[] bytes = new byte[4096];
+            int bufSize = 510 * 1024;
+            byte[] bytes = new byte[bufSize];
             while (connected)
             {
                 try
@@ -68,10 +69,7 @@ namespace Server
                     string jsonObj = Encoding.Default.GetString(bytes);
 
                     // Получаем сообщение из буфера
-                    int endOfData = jsonObj.IndexOf((char)0x00);
                     jsonObj = jsonObj.Substring(0, len);
-
-                    // Отображение сообщения
                     Data data = JsonSerializer.Deserialize<Data>(jsonObj);
 
                     if (data.Message != null)
@@ -97,8 +95,10 @@ namespace Server
 
                         mutexObj.ReleaseMutex();
 
-                        Response response = new Response{ Result=result, Message= message, Time = DateTime.Now.ToString("HH:mm") };
-                        string respObj = JsonSerializer.Serialize<Response>(response);
+                        Response response = new Response { Result = result, Message = message, Time = DateTime.Now.ToString("HH:mm") };
+                        Data respdata = new Data { Response = response };
+
+                        string respObj = JsonSerializer.Serialize<Data>(respdata);
                         byte[] respbytes = Encoding.Default.GetBytes(respObj);
                         client.connection.Send(respbytes);
                     }
@@ -116,7 +116,6 @@ namespace Server
                         mutexObj.ReleaseMutex();
 
                         Response response = new Response { Result = result, Message = message, Time = DateTime.Now.ToString("HH:mm") };
-
                         Data respdata = new Data { Response = response };
 
                         string respObj = JsonSerializer.Serialize<Data>(respdata);
@@ -142,6 +141,25 @@ namespace Server
                         client.connection.Send(respbytes);
                     }
                    
+                    if(data.ProfileImage != null)
+                    {
+                        ProfileImage profileImage = data.ProfileImage;
+                        Console.WriteLine("Меняем фото " + profileImage.UserName);
+
+                        mutexObj.WaitOne();
+
+                        (int result, string message) = DataBase.ChangeUserImage(profileImage.UserName, profileImage.Image);
+                        Console.WriteLine(message);
+
+                        mutexObj.ReleaseMutex();
+
+                        Response response = new Response { Result = result, Message = message, Time = DateTime.Now.ToString("HH:mm") };
+                        Data respdata = new Data { Response = response };
+
+                        string respObj = JsonSerializer.Serialize<Data>(respdata);
+                        byte[] respbytes = Encoding.Default.GetBytes(respObj);
+                        client.connection.Send(respbytes);
+                    }
                 }
                 catch(Exception ex)
                 {
