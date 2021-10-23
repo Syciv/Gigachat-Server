@@ -14,3 +14,8 @@ C:\Users\EEEOne\Desktop\ChattServer\bin\Debug\netcoreapp3.1\Bo.pdb
 C:\Users\EEEOne\Desktop\ChattServer\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
 C:\Users\EEEOne\Desktop\ChattServer\obj\Debug\netcoreapp3.1\Bo.dll
 C:\Users\EEEOne\Desktop\ChattServer\obj\Debug\netcoreapp3.1\Bo.pdb
+C:\Users\EEEOne\Desktop\ChattServer\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Users\EEEOne\Desktop\ChattServer\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\EEEOne\Desktop\ChattServer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\EEEOne\Desktop\ChattServer\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\EEEOne\Desktop\ChattServer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll

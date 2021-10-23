@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "R8qO0CL7LQgtwiBpKEIsXPmKbw6wLNrkA127l2hvhq+RET3idv/ColJt5im4KVrcu806M8UlnKn5Q6SPGQWRlg==",
+  "dgSpecHash": "PnRJIuvnhEqb2pQT5og7BEChQXewab7+/D64cR6zNRTIPkkGB11T5JYKpKTh4Vrq88BB1XIsnQ5iOBJ1jc57hw==",
   "success": true,
   "projectFilePath": "C:\\Users\\EEEOne\\Desktop\\ChattServer\\GigachatServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\EEEOne\\.nuget\\packages\\bouncycastle\\1.8.9\\bouncycastle.1.8.9.nupkg.sha512",
+    "C:\\Users\\EEEOne\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\EEEOne\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\EEEOne\\.nuget\\packages\\npgsql\\5.0.10\\npgsql.5.0.10.nupkg.sha512",
+    "C:\\Users\\EEEOne\\.nuget\\packages\\system.drawing.common\\5.0.2\\system.drawing.common.5.0.2.nupkg.sha512",
     "C:\\Users\\EEEOne\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.6.0\\system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512"
   ],
   "logs": [

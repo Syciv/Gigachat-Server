@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Drawing;
 using Npgsql;
 using GigachatServer.Services;
 using GigachatServer.Models;
@@ -158,7 +159,7 @@ namespace GigachatServer.Core
             using (var connection = new NpgsqlConnection(cs))
             {
                 connection.Open();
-
+                string defaultImagePath = "E:\\gigachad.jpg";
 
                 var query = @"SELECT login, name, surname, registrationdate, profileimage FROM Users WHERE Login = quote_ident(@log)";
                 var command = new NpgsqlCommand();
@@ -175,8 +176,8 @@ namespace GigachatServer.Core
                         UserName = (string)reader["login"],
                         Name = (string)reader["name"],
                         Surname = (string)reader["surname"],
-                        Date = ((DateTime)reader["registrationdate"]).ToString(),
-                        ProfileImage = (reader["profileimage"] != DBNull.Value) ? (byte[])reader["profileimage"] : null,
+                        Date = ((DateTime)reader["registrationdate"]).ToString("D"),
+                        ProfileImage = (reader["profileimage"] != DBNull.Value) ? (byte[])reader["profileimage"] : ImageConvertService.ImageToByteArray(Image.FromFile(defaultImagePath)),
                     };
 
                     reader.Close();
@@ -190,6 +191,30 @@ namespace GigachatServer.Core
                 }
             }
 
+        }
+
+        public (int, string) ChangeUserImage(string userName, byte[] imageBytes)
+        {
+            using (var connection = new NpgsqlConnection(cs))
+            {
+                connection.Open();
+
+                var query = @"UPDATE Users SET profileimage = @image WHERE login = quote_ident(@log)";
+                var command = new NpgsqlCommand();
+                command.CommandText = query;
+                command.Parameters.AddWithValue("@image", imageBytes);
+                command.Parameters.AddWithValue("@log", userName);
+                command.Connection = connection;
+
+                if (command.ExecuteNonQuery() == 1)
+                {
+                    return (1, "Изображение изменено");
+                }
+                else
+                {
+                    return (0, "Произошла ошибка");
+                }
+            }
         }
     }
 
